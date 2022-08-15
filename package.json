@@ -1,10 +1,9 @@
 {
-  "name": "angular-sharebuttons",
+  "name": "angular-ddn-test-task",
   "version": "1.0.0",
-  "description": "Application example built with Angular 14 and adding the social media share buttons component using the ngx-sharebuttons library.",
-  "author": "Rodrigo Kamada <rodrigo@kamada.com.br> (https://github.com/rodrigokamada)",
+  "description": "Implement a multi-level bar component in Angular",
   "license": "MIT",
-  "private": true,
+  "private": false,
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -24,14 +23,6 @@
     "@angular/platform-browser": "^14.0.0",
     "@angular/platform-browser-dynamic": "^14.0.0",
     "@angular/router": "^14.0.0",
-    "@fortawesome/angular-fontawesome": "^0.11.0",
-    "@fortawesome/fontawesome-svg-core": "^6.1.1",
-    "@fortawesome/free-brands-svg-icons": "^6.1.1",
-    "@fortawesome/free-solid-svg-icons": "^6.1.1",
-    "@popperjs/core": "^2.11.5",
-    "bootstrap": "^5.1.3",
-    "bootstrap-icons": "^1.8.3",
-    "ngx-sharebuttons": "^11.0.0",
     "rxjs": "~7.5.5",
     "tslib": "^2.4.0",
     "zone.js": "~0.11.5"
