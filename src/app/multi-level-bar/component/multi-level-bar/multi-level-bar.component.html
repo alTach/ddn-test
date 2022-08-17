@@ -1,0 +1,11 @@
+<div class="total-capacity">
+  <div class="total-capacity__bars" [style.width.%]="allocatedCapacityWidth">
+    <div #UsedCapacity class="used-capacity" [style.width.%]="usedCapacityWidth">
+      <span #UsedCapacityTitle [class.hide]="hideUsedCapacityTitle" class="used-capacity__title capacity-title"> {{config.used | bytesTo: config.usedPrecision}}</span>
+    </div>
+    <div #AllocatedCapacity class="allocated-capacity" [style.width.%]="allocatedCapacityWidth - usedCapacityWidth">
+      <span #AllocatedCapacityTitle [class.hide]="hideAllocatedCapacityTitle" class="allocated-capacity__title capacity-title"> {{config.allocated | bytesTo: config.allocatedPrecision}}</span>
+    </div>
+  </div>
+</div>
+<span #TotalCapacityTitle [class.hide]="hideTotalCapacityTitle" class="total-capacity__title capacity-title">Total  {{config.total | bytesTo: config.totalPrecision}}</span>
