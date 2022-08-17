@@ -3,7 +3,7 @@
     <div #UsedCapacity class="used-capacity" [style.width.%]="config.used | percentOf: config.allocated">
       <span #UsedCapacityTitle [class.hide]="hideUsedCapacityTitle" class="used-capacity__title capacity-title"> {{config.used | bytesTo: config.usedPrecision}}</span>
     </div>
-    <div #AllocatedCapacity class="allocated-capacity" [style.width.%]="allocatedCapacityWidth - usedCapacityWidth">
+    <div #AllocatedCapacity class="allocated-capacity">
       <span #AllocatedCapacityTitle [class.hide]="hideAllocatedCapacityTitle" class="allocated-capacity__title capacity-title"> {{config.allocated | bytesTo: config.allocatedPrecision}}</span>
     </div>
   </div>
