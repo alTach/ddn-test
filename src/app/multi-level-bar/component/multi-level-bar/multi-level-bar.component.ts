@@ -6,7 +6,6 @@ import {
   ElementRef,
   Inject,
   Input,
-  OnInit,
   ViewChild
 } from '@angular/core';
 import { MultiLevelBarConfig } from "../../model/multi-level-bar.model";
