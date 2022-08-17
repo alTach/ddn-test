@@ -7,10 +7,12 @@ $border-r: 25px;
   font-size: 12px;
   text-align: center;
 }
+
 .total-capacity__bars {
   display: flex;
   width: 100%;
 }
+
 .allocated-capacity {
   flex-grow: 1;
   border-top-right-radius: $border-r;
@@ -29,6 +31,7 @@ $border-r: 25px;
   height: $bar-h;
   background-color: gray;
 }
+
 .used-capacity, .allocated-capacity {
   display: flex;
   align-items: center;
@@ -39,10 +42,12 @@ $border-r: 25px;
   height: $bar-h;
   background-color: red;
 }
+
 .allocated-capacity {
   height: $bar-h;
   background-color: green;
 }
+
 .hide {
   opacity: 0;
 }

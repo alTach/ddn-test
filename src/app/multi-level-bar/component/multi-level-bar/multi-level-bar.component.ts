@@ -1,48 +1,56 @@
-import { AfterViewChecked, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewChecked,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  Inject,
+  Input,
+  OnInit,
+  ViewChild
+} from '@angular/core';
 import { MultiLevelBarConfig } from "../../model/multi-level-bar.model";
-import { auditTime, fromEvent } from "rxjs";
+import { auditTime, fromEvent, Observable, takeUntil } from "rxjs";
+import { TuiDestroyService } from "@taiga-ui/cdk";
+import { getElWidth } from "src/app/multi-level-bar/utttils/get-el-width";
 
 @Component({
   selector: 'app-multi-level-bar',
   templateUrl: './multi-level-bar.component.html',
   styleUrls: ['./multi-level-bar.component.scss'],
+  providers: [TuiDestroyService],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MultiLevelBarComponent implements OnInit, AfterViewChecked {
   hideUsedCapacityTitle = false;
   hideAllocatedCapacityTitle = false;
-  hideTotalCapacityTitle = false;
   usedCapacityWidth: number = 0;
   allocatedCapacityWidth: number = 0;
+  private resize$ = fromEvent(window, 'resize').pipe(takeUntil(this.destroy$), auditTime(500));
   @Input() config!: MultiLevelBarConfig
-
   @ViewChild('UsedCapacity') usedCapacity: ElementRef | null = null;
   @ViewChild('AllocatedCapacity') allocatedCapacity: ElementRef | null = null;
   @ViewChild('UsedCapacityTitle') usedCapacityTitle: ElementRef | null = null;
   @ViewChild('AllocatedCapacityTitle') allocatedCapacityTitle: ElementRef | null = null;
   @ViewChild('TotalCapacity') totalCapacity: ElementRef | null = null;
-  @ViewChild('TotalCapacityTitle') totalCapacityTitle: ElementRef | null = null;
 
-  constructor(private cd: ChangeDetectorRef) {
-    fromEvent(window, 'resize').pipe(auditTime(500)).subscribe(() => this.reCalc());
+  constructor(@Inject(TuiDestroyService) private readonly destroy$: Observable<void>, private cd: ChangeDetectorRef) {
+    this.resize$.subscribe(() => this.showAndHideTitle());
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   ngAfterViewChecked(): void {
-    this.reCalc();
-  }
-
-  reCalc() {
-    this.calcElWidth();
     this.showAndHideTitle();
+    console.log(22);
   }
 
-  showAndHideTitle() {
+  private showAndHideTitle() {
+    this.cd.detectChanges();
     let hasChanges = false;
-    const newHideUsedCapacityTitle = this.usedCapacity?.nativeElement.offsetWidth < this.usedCapacityTitle?.nativeElement.offsetWidth;
-    const newHideAllocatedCapacityTitle = this.allocatedCapacity?.nativeElement.offsetWidth < this.allocatedCapacityTitle?.nativeElement.offsetWidth;
-    const newHideTotalCapacityTitle = this.totalCapacity?.nativeElement.offsetWidth < this.totalCapacityTitle?.nativeElement.offsetWidth;
+    const newHideUsedCapacityTitle =    getElWidth(this.usedCapacity) <     getElWidth(this.usedCapacityTitle);
+    const newHideAllocatedCapacityTitle =     getElWidth(this.allocatedCapacity) <    getElWidth(this.allocatedCapacityTitle);
     if (newHideUsedCapacityTitle !== this.hideUsedCapacityTitle) {
       hasChanges = true;
       this.hideUsedCapacityTitle = newHideUsedCapacityTitle;
@@ -51,18 +59,8 @@ export class MultiLevelBarComponent implements OnInit, AfterViewChecked {
       hasChanges = true;
       this.hideAllocatedCapacityTitle = newHideAllocatedCapacityTitle
     }
-    if (newHideTotalCapacityTitle !== this.hideTotalCapacityTitle) {
-      hasChanges = true;
-      this.hideTotalCapacityTitle = newHideTotalCapacityTitle
-    }
     if (hasChanges) {
       this.cd.detectChanges();
     }
-  }
-
-  calcElWidth() {
-    this.allocatedCapacityWidth = this.config.allocated * 100 / this.config.total;
-    this.usedCapacityWidth = this.config.used * 100 / this.config.allocated
-    this.cd.detectChanges();
   }
 }

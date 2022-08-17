@@ -1,6 +1,6 @@
 <div class="total-capacity">
-  <div class="total-capacity__bars" [style.width.%]="allocatedCapacityWidth">
-    <div #UsedCapacity class="used-capacity" [style.width.%]="usedCapacityWidth">
+  <div class="total-capacity__bars" [style.width.%]="config.allocated | percentOf: config.total">
+    <div #UsedCapacity class="used-capacity" [style.width.%]="config.used | percentOf: config.allocated">
       <span #UsedCapacityTitle [class.hide]="hideUsedCapacityTitle" class="used-capacity__title capacity-title"> {{config.used | bytesTo: config.usedPrecision}}</span>
     </div>
     <div #AllocatedCapacity class="allocated-capacity" [style.width.%]="allocatedCapacityWidth - usedCapacityWidth">
@@ -8,4 +8,4 @@
     </div>
   </div>
 </div>
-<span #TotalCapacityTitle [class.hide]="hideTotalCapacityTitle" class="total-capacity__title capacity-title">Total  {{config.total | bytesTo: config.totalPrecision}}</span>
+<span class="total-capacity__title capacity-title">Total  {{config.total | bytesTo: config.totalPrecision}}</span>
