@@ -11,14 +11,14 @@ import {
 } from '@angular/core';
 import { MultiLevelBarConfig } from "../../model/multi-level-bar.model";
 import { auditTime, fromEvent, Observable, takeUntil } from "rxjs";
-import { TuiDestroyService } from "@taiga-ui/cdk";
+import { DestroyService } from "../../service/destroy.service";
 import { getElWidth } from "../../utttils/get-el-width";
 
 @Component({
   selector: 'app-multi-level-bar',
   templateUrl: './multi-level-bar.component.html',
   styleUrls: ['./multi-level-bar.component.scss'],
-  providers: [TuiDestroyService],
+  providers: [DestroyService],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MultiLevelBarComponent implements AfterViewChecked {
@@ -32,7 +32,7 @@ export class MultiLevelBarComponent implements AfterViewChecked {
   @ViewChild('UsedCapacityTitle') usedCapacityTitle: ElementRef | null = null;
   @ViewChild('AllocatedCapacityTitle') allocatedCapacityTitle: ElementRef | null = null;
 
-  constructor(@Inject(TuiDestroyService) private readonly destroy$: Observable<void>, private cd: ChangeDetectorRef) {
+  constructor(@Inject(DestroyService) private readonly destroy$: Observable<void>, private cd: ChangeDetectorRef) {
     this.resize$.subscribe(() => this.showAndHideTitle());
   }
 
