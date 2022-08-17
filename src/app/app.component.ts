@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MultiLevelBarConfig } from "src/app/multi-level-bar/model/multi-level-bar.model";
+import { MultiLevelBarConfig } from "./multi-level-bar/model/multi-level-bar.model";
 
 @Component({
   selector: 'app-root',
